@@ -92,7 +92,7 @@ function $(e) {
 
 function init() {
     var url = document.URL;
-    pid = url.split("pasteup.github.io/")[1];
+    pid = url.split("cwbs.github.io/")[1];
     if (pid != "") {
         sw(2);
         fetch('https://script.google.com/macros/s/AKfycbzC0e0FqsKGMIyn4sHluHV95dgywb7M_EsekMr4udG-O3loOuPP/exec?' + pid).then(function(response) {
