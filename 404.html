@@ -83,11 +83,64 @@ height:50vh;
 }
 
 </style>
+<script>
+	var pid;
+
+function $(e) {
+    return document.getElementById(e);
+}
+
+function init() {
+    var url = document.URL;
+    pid = url.split("pasteup.github.io/")[1];
+    if (pid != "") {
+        sw(2);
+        fetch('https://script.google.com/macros/s/AKfycbzC0e0FqsKGMIyn4sHluHV95dgywb7M_EsekMr4udG-O3loOuPP/exec?' + pid).then(function(response) {
+            response.text().then(function(text) {
+                $("txt").value = text || ' ';
+            })
+        });
+    } else {
+        sw(1);
+        var rnd = Math.random().toString(36).substring(8);
+        $("lnk").href = "https://cwbs.github.io/" + rnd;
+        $("lnk").innerHTML = "cwbs.github.io/" + rnd;
+    }
+}
+
+function sw(i) {
+    $("info1").style.display = "none";
+    $("info2").style.display = "none";
+    $("info3").style.display = "none";
+    $("info" + i).style.display = "block";
+}
+
+function cc() {
+    var txt = $("txt");
+    txt.select();
+    txt.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+}
+
+function cb() {
+    fetch("https://script.google.com/macros/s/AKfycbzC0e0FqsKGMIyn4sHluHV95dgywb7M_EsekMr4udG-O3loOuPP/exec", {
+        method: 'POST',
+        body: pid + '~`~' + $("txt").value,
+        headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+        }
+    }).then(response => {
+        $("url").href = "https://cwbs.github.io/" + pid;
+        $("url").innerHTML = "cwbs.github.io/" + pid;
+        $("qr").src = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=pasteup.github.io/" + pid;
+        sw(3);
+    });
+}</script>
 </head>
 
 <body>
 
-<a class= "title" href="http://line25.com">Clipboard Without Borders</a>
+<a class= "title" href="https://cwbs.github.io/">Clipboard Without Borders</a>
 
 
 <div id="info1">
